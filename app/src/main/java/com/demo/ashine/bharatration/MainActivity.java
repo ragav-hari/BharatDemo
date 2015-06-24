@@ -20,8 +20,18 @@ import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import demo.model.Brand;
+import demo.model.BrandAttribute;
+import demo.model.TabContent;
+import demo.model.Type;
 import demo.utils.AppConstants;
 import demo.utils.RestfulConnection;
 
@@ -157,8 +167,90 @@ public class MainActivity extends ActionBarActivity
     {
         public void getData(String data)
         {
-            System.out.println("Get"+ " "+data);
+            //System.out.println("Get"+ " "+data);
+            Gson gson  = new GsonBuilder().create();
+            Type type = gson.fromJson(data, Type.class);
 
+            /* Set Pojo for Creating object */
+            TabContent tabContent = new TabContent();
+            TabContent tabContent1 = new TabContent();
+            ArrayList<TabContent> tabContents = new ArrayList<TabContent>();
+
+            Type salt  = new Type();
+            Type sugar = new Type();
+
+            Brand ionisedsalt   = new Brand();
+            Brand ordinarysalt  = new Brand();
+            Brand refinedsugar  = new Brand();
+            Brand ordinarysugar = new Brand();
+
+            BrandAttribute ionsaltattr1 = new BrandAttribute();
+            BrandAttribute ionsaltattr2 = new BrandAttribute();
+            BrandAttribute ordsaltattr1 = new BrandAttribute();
+            BrandAttribute ordsaltattr2 = new BrandAttribute();
+            BrandAttribute refsugrattr1 = new BrandAttribute();
+            BrandAttribute refsugrattr2 = new BrandAttribute();
+            BrandAttribute ordsugrattr1 = new BrandAttribute();
+            BrandAttribute ordsugrattr2 = new BrandAttribute();
+
+            ArrayList<Brand>  sugarlist = new ArrayList<Brand>();
+            ArrayList<Brand>  saltlist  = new ArrayList<Brand>();
+
+            ArrayList<BrandAttribute> sugarlistattr = new ArrayList<BrandAttribute>();
+            ArrayList<BrandAttribute> saltlistattr = new ArrayList<BrandAttribute>();
+
+            salt.setType_id(1);
+            salt.setType_name("Salt");
+
+            sugar.setType_id(2);
+            sugar.setType_name("Sugar");
+
+            ionsaltattr1.setWeight("10 KG");
+            ionsaltattr1.setPrice("Rs 50");
+
+            ionsaltattr2.setWeight("5 KG");
+            ionsaltattr2.setPrice("Rs 80");
+
+            refsugrattr1.setWeight("15 KG");
+            refsugrattr2.setPrice("Rs 100");
+
+            refsugrattr2.setWeight("20 KG");
+            refsugrattr2.setPrice("Rs 150");
+
+            saltlistattr.add(ionsaltattr1);
+            saltlistattr.add(ionsaltattr2);
+
+            sugarlistattr.add(refsugrattr1);
+            sugarlistattr.add(refsugrattr2);
+
+            ionisedsalt.setBrand_id(1);
+            ionisedsalt.setBrand_name("Ionised Salt");
+            ionisedsalt.setBrandAttributeList(saltlistattr);
+
+            refinedsugar.setBrand_id(2);
+            refinedsugar.setBrand_name("Refined Sugar");
+            refinedsugar.setBrandAttributeList(sugarlistattr);
+
+            saltlist.add(ionisedsalt);
+            sugarlist.add(refinedsugar);
+
+            tabContent.setType(salt);
+            tabContent.setBrandList(saltlist);
+
+            tabContent1.setType(sugar);
+            tabContent1.setBrandList(sugarlist);
+
+            tabContents.add(tabContent);
+            tabContents.add(tabContent1);
+
+            System.out.println(gson.toJson(tabContents));
+
+
+
+
+
+            //System.out.println("Type"+ " "+type.toString());
+            //System.out.println("Type Name"+ " "+type.getType_name());
         }
     }
     /**

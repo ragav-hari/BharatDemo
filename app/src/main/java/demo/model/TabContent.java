@@ -1,5 +1,6 @@
 package demo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -7,22 +8,22 @@ import java.util.List;
  */
 public class TabContent
 {
-    private Product product;
-    private List<Brand> brandList;
+    private Type type;
+    private ArrayList<Brand> brandList;
 
-    public List<Brand> getBrandList() {
+    public ArrayList<Brand> getBrandList() {
         return brandList;
     }
 
-    public void setBrandList(List<Brand> brandList) {
+    public void setBrandList(ArrayList<Brand> brandList) {
         this.brandList = brandList;
     }
 
-    public Product getProduct() {
-        return product;
+    public Type getType() {
+        return type;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setType(Type type) {
+        this.type = type;
     }
 }

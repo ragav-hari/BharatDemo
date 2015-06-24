@@ -1,5 +1,6 @@
 package demo.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,13 +10,13 @@ public class Brand
 {
     private int brand_id;
     private String brand_name;
-    private List<BrandAttribute> brandAttributeList;
+    private ArrayList<BrandAttribute> brandAttributeList;
 
-    public List<BrandAttribute> getBrandAttributeList() {
+    public ArrayList<BrandAttribute> getBrandAttributeList() {
         return brandAttributeList;
     }
 
-    public void setBrandAttributeList(List<BrandAttribute> brandAttributeList) {
+    public void setBrandAttributeList(ArrayList<BrandAttribute> brandAttributeList) {
         this.brandAttributeList = brandAttributeList;
     }
 
