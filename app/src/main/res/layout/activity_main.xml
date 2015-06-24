@@ -4,6 +4,110 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <TabHost android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/tabHost"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            >
+
+            <HorizontalScrollView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:fillViewport="true"
+                android:scrollbars="none" >
+                <TabWidget
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@android:id/tabs"
+                    />
+            </HorizontalScrollView>
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:id="@android:id/tabcontent"
+                >
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tab1"
+                    android:orientation="vertical"
+                    android:paddingTop="60px"
+                    >
+
+                    <!-- Card View Starts -->
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                    <!-- Card View Ends -->
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/tab2"
+                    android:orientation="vertical"
+                    android:paddingTop="60px"
+                    >
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="100px"
+
+                        android:id="@+id/txt2"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/tab3"
+                    android:orientation="vertical"
+                    android:paddingTop="60px"
+                    >
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="100px"
+                        android:text="This is tab 3"
+                        android:id="@+id/txt3"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/tab4"
+                    android:orientation="vertical"
+                    android:paddingTop="60px"
+                    >
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="100px"
+                        android:text="This is tab 4"
+                        android:id="@+id/txt4"
+                        />
+
+                </LinearLayout>
+            </FrameLayout>
+
+        </TabHost>
+
+        <!-- -->
+
+
+    </RelativeLayout>
+
+
     <!-- As the main content view, the view below consumes the entire
          space available using match_parent in both dimensions. -->
     <FrameLayout android:id="@+id/container" android:layout_width="match_parent"

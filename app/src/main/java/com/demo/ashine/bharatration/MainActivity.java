@@ -3,6 +3,7 @@ package com.demo.ashine.bharatration;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,16 +21,21 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.support.v4.widget.DrawerLayout;
 import android.widget.ArrayAdapter;
+import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+
+import demo.adapter.CardAdapter;
 import demo.model.Brand;
 import demo.model.BrandAttribute;
 import demo.model.TabContent;
@@ -51,12 +59,56 @@ public class MainActivity extends ActionBarActivity
     JSONObject jsonObject = null;
     private String mdata = "";
     ProgressDialog progressDialog;
+    private RecyclerView mRecyclerView;
+    private RecyclerView.Adapter mAdapter;
+    private RecyclerView.LayoutManager mLayoutManager;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        if (android.os.Build.VERSION.SDK_INT > 9)
+        {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
+
+        mRecyclerView = (RecyclerView)findViewById(R.id.recycler_view);
+        mRecyclerView.setHasFixedSize(true);
+
+        mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+
+        mAdapter = new CardAdapter();
+        mRecyclerView.setAdapter(mAdapter);
+
+        /* Tab Coding Starts */
+        TabHost tabHost=(TabHost)findViewById(R.id.tabHost);
+        tabHost.setup();
+
+        TabHost.TabSpec spec1=tabHost.newTabSpec("Essentials");
+        spec1.setContent(R.id.tab1);
+        spec1.setIndicator("Essentials");
+
+        TabHost.TabSpec spec2=tabHost.newTabSpec("Women");
+        spec2.setIndicator("Women");
+        spec2.setContent(R.id.tab2);
+
+        TabHost.TabSpec spec3=tabHost.newTabSpec("Kids and Men");
+        spec3.setIndicator("Kids and Men");
+        spec3.setContent(R.id.tab3);
+
+        TabHost.TabSpec spec4=tabHost.newTabSpec("Others");
+        spec4.setIndicator("Others");
+        spec4.setContent(R.id.tab4);
+
+        tabHost.addTab(spec1);
+        tabHost.addTab(spec2);
+        tabHost.addTab(spec3);
+        tabHost.addTab(spec4);
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
@@ -171,8 +223,26 @@ public class MainActivity extends ActionBarActivity
             Gson gson  = new GsonBuilder().create();
             Type type = gson.fromJson(data, Type.class);
 
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+                String result = jsonObject.getString("Result");
+                JSONArray jsonArray = new JSONArray(result);
+                ArrayList<Type> types = new ArrayList<Type>();
+
+                for(int i = 0 ; i < jsonArray.length() ; i++)
+                {
+                    jsonObject = jsonArray.getJSONObject(i);
+                    String type_name = jsonObject.getString("type_name");
+                    Type type1 = new Type();
+                    type1.setType_name(type_name);
+                    types.add(type1);
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
             /* Set Pojo for Creating object */
-            TabContent tabContent = new TabContent();
+        /*    TabContent tabContent = new TabContent();
             TabContent tabContent1 = new TabContent();
             ArrayList<TabContent> tabContents = new ArrayList<TabContent>();
 
@@ -242,8 +312,8 @@ public class MainActivity extends ActionBarActivity
 
             tabContents.add(tabContent);
             tabContents.add(tabContent1);
-
-            System.out.println(gson.toJson(tabContents));
+*/
+          //  System.out.println(gson.toJson(tabContents));
 
 
 
