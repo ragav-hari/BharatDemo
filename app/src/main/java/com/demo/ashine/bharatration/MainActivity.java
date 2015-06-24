@@ -69,7 +69,7 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setupActionBar();
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -121,6 +121,22 @@ public class MainActivity extends ActionBarActivity
 
         new GetCardData().execute();
     }
+
+
+    private void setupActionBar()
+    {
+        android.app.ActionBar actionBar = getActionBar();
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+        LayoutInflater inflator = (LayoutInflater) this
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View v = inflator.inflate(R.layout.actionbar_custom, null);
+
+        TextView titleTV = (TextView) v.findViewById(R.id.title);
+        actionBar.setCustomView(v);
+    }
+
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -223,7 +239,8 @@ public class MainActivity extends ActionBarActivity
             Gson gson  = new GsonBuilder().create();
             Type type = gson.fromJson(data, Type.class);
 
-            try {
+            try
+            {
                 JSONObject jsonObject = new JSONObject(data);
                 String result = jsonObject.getString("Result");
                 JSONArray jsonArray = new JSONArray(result);
@@ -237,7 +254,9 @@ public class MainActivity extends ActionBarActivity
                     type1.setType_name(type_name);
                     types.add(type1);
                 }
-            } catch (JSONException e) {
+            }
+            catch (JSONException e)
+            {
                 e.printStackTrace();
             }
 
