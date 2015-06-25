@@ -69,7 +69,9 @@ public class MainActivity extends ActionBarActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         setupActionBar();
+
         if (android.os.Build.VERSION.SDK_INT > 9)
         {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
@@ -207,9 +209,10 @@ public class MainActivity extends ActionBarActivity
         @Override
         protected void onPreExecute()
         {
-            progressDialog = new ProgressDialog(MainActivity.this);
+          /*  progressDialog = new ProgressDialog(MainActivity.this);
             progressDialog.setMessage("Loading Please Wait...");
             progressDialog.show();
+            */
         }
 
         protected String doInBackground(String... arg0)
